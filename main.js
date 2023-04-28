@@ -24,8 +24,10 @@ btnDown.addEventListener('click', moveDown);
 btnLeft.addEventListener('click', moveLeft);
 btnRight.addEventListener('click', moveRight);
 
+
+
 function startGame() {
-    //const elementsSize = (canvasSize / 10);
+    game.clearRect(0, 0, canvasSize, canvasSize)
     game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end'
     const currentMap = maps[0]
@@ -37,13 +39,13 @@ function startGame() {
             const posX = (elementsSize) * (colIndex + 1.2)
             const posY = (elementsSize - 2) * (rowIndex + 1)
             game.fillText(emoji, posX, posY)
-            if (col === 'O') {
+            if (col === 'O' && player.x === undefined) {
                 player.x = posX;
                 player.y = posY;
-                renderPlayer()
             }
         })
     })
+    renderPlayer()
 }
 function renderGame() {
     window.innerHeight > window.innerWidth ? canvasSize = window.innerWidth * 0.75 : canvasSize = window.innerHeight * 0.75
@@ -72,16 +74,18 @@ function keyPress(ev) {
     }
 };
 function moveUp() {
-    player.y = player.y - elementsSize
-    renderPlayer()
-
+    player.y -= elementsSize
+    startGame()
 }
 function moveDown() {
-    console.log('abajo')
+    player.y += elementsSize
+    startGame()
 }
 function moveLeft() {
-    console.log('izquierda')
+    player.x -= elementsSize
+    startGame()
 }
 function moveRight() {
-    console.log('derecha')
+    player.x += elementsSize
+    startGame()
 }
